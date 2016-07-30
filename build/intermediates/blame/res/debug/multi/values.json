@@ -1,0 +1,121 @@
+[
+    {
+        "outputFile": "C:\\Users\\viren\\App-IOIO0505\\src\\applications\\HelloIOIO\\build\\intermediates\\res\\merged\\debug\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 57,
+                    "endOffset": 108
+                },
+                "from": {
+                    "file": "C:\\Users\\viren\\App-IOIO0505\\src\\applications\\HelloIOIO\\src\\main\\res\\values\\dimens.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 90,
+                        "endColumn": 57,
+                        "endOffset": 143
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 113,
+                    "endColumn": 55,
+                    "endOffset": 164
+                },
+                "from": {
+                    "file": "C:\\Users\\viren\\App-IOIO0505\\src\\applications\\HelloIOIO\\src\\main\\res\\values\\dimens.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 149,
+                        "endColumn": 55,
+                        "endOffset": 200
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 169,
+                    "endColumn": 47,
+                    "endOffset": 212
+                },
+                "from": {
+                    "file": "C:\\Users\\viren\\App-IOIO0505\\src\\applications\\HelloIOIO\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 107,
+                        "endColumn": 47,
+                        "endOffset": 150
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 217,
+                    "endColumn": 90,
+                    "endOffset": 303
+                },
+                "from": {
+                    "file": "C:\\Users\\viren\\App-IOIO0505\\src\\applications\\HelloIOIO\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 215,
+                        "endColumn": 90,
+                        "endOffset": 301
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 308,
+                    "endColumn": 51,
+                    "endOffset": 355
+                },
+                "from": {
+                    "file": "C:\\Users\\viren\\App-IOIO0505\\src\\applications\\HelloIOIO\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 51,
+                        "endOffset": 102
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 360,
+                    "endColumn": 59,
+                    "endOffset": 415
+                },
+                "from": {
+                    "file": "C:\\Users\\viren\\App-IOIO0505\\src\\applications\\HelloIOIO\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 155,
+                        "endColumn": 59,
+                        "endOffset": 210
+                    }
+                }
+            }
+        ]
+    }
+]

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\viren\App-IOIO0505\src\applications\HelloIOIO\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        revision="22.0.1"
+        sha1="1243cc7801cff8564776774547b41929d02760fe">
+        <dex dex="C:\Users\viren\App-IOIO0505\src\applications\HelloIOIO\build\intermediates\pre-dexed\debug\instant-run_d06bc654eecdd58fdac9d7557eca5f572aa0ca16.jar" />
+    </item>
+    <item
+        jar="C:\Users\viren\App-IOIO0505\src\applications\HelloIOIO\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="22.0.1"
+        sha1="e82c74e104c14cb465762054896e3dbdd8ac3f5b">
+        <dex dex="C:\Users\viren\App-IOIO0505\src\applications\HelloIOIO\build\intermediates\pre-dexed\debug\instant-run-bootstrap_8577b73eedc6f6dd11810889014306499cf98bdc.jar" />
+    </item>
+    <item
+        jar="C:\Users\viren\App-IOIO0505\src\applications\HelloIOIO\build\intermediates\exploded-aar\com.github.ytai.ioio\IOIOLibAndroidAccessory\5.05\jars\classes.jar"
+        jumboMode="true"
+        revision="22.0.1"
+        sha1="fc276dd77600f248e53cc0bbf77a011d87931840">
+        <dex dex="C:\Users\viren\App-IOIO0505\src\applications\HelloIOIO\build\intermediates\pre-dexed\debug\com.github.ytai.ioio-IOIOLibAndroidAccessory-5.05_fd70dd1bfe2b8c143be210c85a2d28cc71600e6f.jar" />
+    </item>
+    <item
+        jar="C:\Users\viren\App-IOIO0505\src\applications\HelloIOIO\build\intermediates\exploded-aar\com.github.ytai.ioio\IOIOLibAndroidBluetooth\5.05\jars\classes.jar"
+        jumboMode="true"
+        revision="22.0.1"
+        sha1="f347dcaafe682fdd3d3131c9d6568065a8cd83ab">
+        <dex dex="C:\Users\viren\App-IOIO0505\src\applications\HelloIOIO\build\intermediates\pre-dexed\debug\com.github.ytai.ioio-IOIOLibAndroidBluetooth-5.05_d3a92e2b6b0eac70c09fbaa37a9bb28f6041bbca.jar" />
+    </item>
+    <item
+        jar="C:\Users\viren\.gradle\caches\modules-2\files-2.1\com.github.ytai.ioio\IOIOLibCore\5.05\99821d5ab444306c6e39f3de72f85c4b287a6765\IOIOLibCore-5.05.jar"
+        jumboMode="true"
+        revision="22.0.1"
+        sha1="99821d5ab444306c6e39f3de72f85c4b287a6765">
+        <dex dex="C:\Users\viren\App-IOIO0505\src\applications\HelloIOIO\build\intermediates\pre-dexed\debug\IOIOLibCore-5.05_3e14eedb8d64983b98c5beeb6fdf0be74be70686.jar" />
+    </item>
+    <item
+        jar="C:\Users\viren\App-IOIO0505\src\applications\HelloIOIO\build\intermediates\exploded-aar\com.github.ytai.ioio\IOIOLibAndroid\5.05\jars\classes.jar"
+        jumboMode="true"
+        revision="22.0.1"
+        sha1="c76a0936c82cef3da0770204f51f4914f32f6e08">
+        <dex dex="C:\Users\viren\App-IOIO0505\src\applications\HelloIOIO\build\intermediates\pre-dexed\debug\com.github.ytai.ioio-IOIOLibAndroid-5.05_94ce1f06ec1d0e40f11cc240ecc9814394365900.jar" />
+    </item>
+    <item
+        jar="C:\Users\viren\App-IOIO0505\src\applications\HelloIOIO\build\intermediates\exploded-aar\com.github.ytai.ioio\IOIOLibAndroidDevice\5.05\jars\classes.jar"
+        jumboMode="true"
+        revision="22.0.1"
+        sha1="7eb8cafa44ed70860615af51c83606945c43fe73">
+        <dex dex="C:\Users\viren\App-IOIO0505\src\applications\HelloIOIO\build\intermediates\pre-dexed\debug\com.github.ytai.ioio-IOIOLibAndroidDevice-5.05_e268b41727437192480755680478be923b0a7641.jar" />
+    </item>
+
+</items>

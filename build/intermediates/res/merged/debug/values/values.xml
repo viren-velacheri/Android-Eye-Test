@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <string name="app_name">Hello IOIO</string>
+    <string name="click_here_to_go_to_next_image">Click here to go to next image.</string>
+    <string name="hello">Hello, IOIO User!</string>
+    <string name="record_distance">Record distance</string>
+</resources>
