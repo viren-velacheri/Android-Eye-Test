@@ -13,7 +13,6 @@
         android:layout_width="300sp"
         android:layout_height="300sp"
         android:id="@+id/image_view1"
-        android:src="@drawable/lettera"
         android:layout_alignTop="@+id/image_view2"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="46dp" />
@@ -21,7 +20,6 @@
         android:layout_width="300sp"
         android:layout_height="300sp"
         android:id="@+id/image_view2"
-        android:src="@drawable/letterb"
         android:visibility="invisible"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />

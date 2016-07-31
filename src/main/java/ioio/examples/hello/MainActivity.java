@@ -8,6 +8,7 @@ import ioio.lib.util.BaseIOIOLooper;
 import ioio.lib.util.IOIOLooper;
 import ioio.lib.util.android.IOIOActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -41,6 +42,12 @@ public class MainActivity extends IOIOActivity {
 	private double DistanceOutput;
 	private TextView distance_view ;
 	private TextView distance_final;
+	private double [] distance_values;
+	private int wptr ;
+	private final int FILTER_LENGTH = 20;
+	private final int NUM_IMAGES = 7;
+	private int [] drawable_ids ;
+	private int image_ptr ;
 
 	/**
 	 * Called when the activity is first created. Here we normally initialize
@@ -60,7 +67,19 @@ public class MainActivity extends IOIOActivity {
 		imageA = (ImageView) findViewById(R.id.image_view1);
 		distance_view = (TextView)findViewById(R.id.distance_view);
 		distance_final = (TextView)findViewById(R.id.distance_final);
+		distance_values = new double[FILTER_LENGTH];
+		drawable_ids = new int[NUM_IMAGES];
 
+		//Initialize array of drawable ids
+		drawable_ids[0] = R.drawable.lettera;
+		drawable_ids[1] = R.drawable.letterb;
+		drawable_ids[2] = R.drawable.afp;
+		drawable_ids[3] = R.drawable.e45_1_medium;
+		drawable_ids[4] = R.drawable.e45_2_medium;
+		drawable_ids[5] = R.drawable.focuspat;
+		drawable_ids[6] = R.drawable.icon;
+
+		imageA.setImageResource(drawable_ids[0]);
 
 		rec_button.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -68,15 +87,24 @@ public class MainActivity extends IOIOActivity {
 				nxt_button.setVisibility(View.VISIBLE);
 				rec_button.setVisibility(View.INVISIBLE);
 				distance_final.setVisibility(View.VISIBLE);
-				distance_final.setText(String.format("%.02f",DistanceOutput));
+				double total = 0;
+				double distance_average;
+				for(int i = 0; i < distance_values.length; i++)
+				{
+					total = total + distance_values[i];
+				}
+
+				distance_average = total/FILTER_LENGTH;
+				distance_final.setText(String.format("%.02f",distance_average));
 			}
 		});
 
 		nxt_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				imageA.setVisibility(View.INVISIBLE);
-				imageB.setVisibility(View.VISIBLE);
+				imageA.setImageResource(drawable_ids[getNextImageId()]);
+				//imageA.setVisibility(View.INVISIBLE);
+				//imageB.setVisibility(View.VISIBLE);
 				rec_button.setVisibility(View.VISIBLE);
 				distance_final.setVisibility(View.INVISIBLE);
 				nxt_button.setVisibility(View.INVISIBLE);
@@ -84,6 +112,13 @@ public class MainActivity extends IOIOActivity {
 		});
 	}
 
+	int getNextImageId() {
+		if (image_ptr >= NUM_IMAGES-1)
+			image_ptr = 0;
+		else
+			image_ptr++;
+		return image_ptr;
+	}
 	/**
 	 * This is the thread on which all the IOIO activity happens. It will be run
 	 * every time the application is resumed and aborted when it is paused. The
@@ -147,13 +182,25 @@ public class MainActivity extends IOIOActivity {
 				// For Centimeters
 				DistanceOutput = (UltraSonicEcho.getDuration() * 1000000) / 58;
 
+				distance_values[wptr] = DistanceOutput;
+
+				if (wptr >= FILTER_LENGTH-1)
+					wptr = 0;
+				else
+					wptr++;
 
 				//For Inches
 				//DistanceOutput = (UltraSonicEcho.getDuration() * 1000000) / 148;
 				runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
-				distance_view.setText(String.format("%.02f",DistanceOutput));
+					distance_view.setText(String.format("%.02f",DistanceOutput));
+					if (DistanceOutput > 60){
+						distance_view.setTextColor(Color.RED);
+					}
+					else{
+						distance_view.setTextColor(Color.GREEN);
+					}
 				}
 				});
 
