@@ -7,6 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@android:color/white"
     >
 
     <ImageView
@@ -14,15 +15,18 @@
         android:layout_height="300sp"
         android:id="@+id/image_view1"
         android:layout_alignTop="@+id/image_view2"
-        android:layout_alignLeft="@+id/image_view2" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignBottom="@+id/image_view2" />
     <ImageView
         android:layout_width="300sp"
         android:layout_height="300sp"
         android:id="@+id/image_view2"
         android:visibility="invisible"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true" />
 
 
     <Button
@@ -32,16 +36,15 @@
         android:text="@string/record_distance"
         android:id="@+id/rec_button"
         android:onClick="nextButtonOption"
-        android:layout_below="@+id/image_view1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp" />
+        android:layout_below="@+id/nxt_button"
+        android:layout_alignLeft="@+id/nxt_button" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/click_here_to_go_to_next_image"
         android:id="@+id/nxt_button"
         android:visibility="invisible"
-        android:layout_above="@+id/distance_final"
+        android:layout_below="@+id/image_view1"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -64,5 +67,42 @@
         android:layout_alignRight="@+id/nxt_button"
         android:layout_alignParentTop="true"
         android:layout_alignLeft="@+id/rec_button" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back one image"
+        android:id="@+id/backbutton"
+        android:layout_below="@+id/nxt_button"
+        android:layout_alignRight="@+id/image_view1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/textView2"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/rec_button"
+        android:layout_below="@+id/backbutton" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reset"
+        android:id="@+id/reset"
+        android:layout_alignParentLeft="true"
+        android:layout_above="@+id/distance_final" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next Image"
+        android:id="@+id/nextImage"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" />
 
 </RelativeLayout>
