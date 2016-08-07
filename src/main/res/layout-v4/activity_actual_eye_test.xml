@@ -1,108 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     android:background="@android:color/white"
     >
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="75sp"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_weight="10"
+            android:id="@+id/distance_view"
+         />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="right"
+            android:text="RESULTS"
+            android:id="@+id/results"  />
+
+    </LinearLayout>
+
     <ImageView
-        android:layout_width="300sp"
+        android:layout_width="match_parent"
         android:layout_height="300sp"
         android:id="@+id/image_view1"
-        android:layout_alignTop="@+id/image_view2"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignBottom="@+id/image_view2" />
-    <ImageView
-        android:layout_width="300sp"
-        android:layout_height="300sp"
-        android:id="@+id/image_view2"
-        android:visibility="invisible"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="50dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentLeft="true" />
+     />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="BACK"
+            android:layout_weight="1"
+            android:id="@+id/backbutton"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="RECORD"
+            android:id="@+id/rec_button"
+            android:layout_weight="1"
+             />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="NEXT"
+            android:id="@+id/nextbutton"
+            />
 
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/record_distance"
-        android:id="@+id/rec_button"
-        android:onClick="nextButtonOption"
-        android:layout_below="@+id/nxt_button"
-        android:layout_alignLeft="@+id/nxt_button" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/click_here_to_go_to_next_image"
-        android:id="@+id/nxt_button"
-        android:visibility="invisible"
-        android:layout_below="@+id/image_view1"
-        android:layout_centerHorizontal="true" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="70sp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/distance_final"
+            android:layout_weight="100"
+             />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/distance_final"
-        android:visibility="invisible"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/nxt_button"
-        android:layout_below="@+id/rec_button"
-        android:layout_alignLeft="@+id/nxt_button" />
+    </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/distance_view"
-        android:layout_above="@+id/image_view1"
-        android:layout_alignRight="@+id/nxt_button"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/rec_button" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Back one image"
-        android:id="@+id/backbutton"
-        android:layout_below="@+id/nxt_button"
-        android:layout_alignRight="@+id/image_view1" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="RESET"
+            android:id="@+id/reset" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/textView2"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/rec_button"
-        android:layout_below="@+id/backbutton" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="REDO"
+            android:id="@+id/redo"/>
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Reset"
-        android:id="@+id/reset"
-        android:layout_alignParentLeft="true"
-        android:layout_above="@+id/distance_final" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Next Image"
-        android:id="@+id/nextImage"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true" />
 
-</RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

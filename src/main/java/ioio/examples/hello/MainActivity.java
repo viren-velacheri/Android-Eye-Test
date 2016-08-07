@@ -10,10 +10,10 @@ import ioio.lib.util.android.IOIOActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.concurrent.TimeUnit;
@@ -34,18 +34,19 @@ import java.util.concurrent.TimeUnit;
  * HelloIOIOPower example.
  */
 public class MainActivity extends IOIOActivity {
-	private Button nextimage_button;
+	private Button results_button;
 	private Button rec_button;
 	private Button nxt_button;
 	private Button back_button;
 	private Button reset_button;
+	private Button redo_button;
 	private ImageView imageA;
-	//private ToggleButton button_;
-	//private TextView textView1;
+
 	private double DistanceOutput;
 	private TextView distance_view ;
 	private TextView distance_final;
 	private double [] distance_values;
+	private double [] recorded_distances;
 	private int wptr ;
 	private final int FILTER_LENGTH = 20;
 	private final int NUM_IMAGES = 20;
@@ -53,7 +54,9 @@ public class MainActivity extends IOIOActivity {
 	private int [] drawable_ids ;
 	private int image_ptr;
 	private final double optotype_size = 0.0087;
-	private TextView textview2;
+	private final double MAX_DISTANCE_THRESHOLD_WARN = 70.0;
+	private int index_count = 0;
+	private final String TAG="MainActivity";
 
 	/**
 	 * Called when the activity is first created. Here we normally initialize
@@ -62,22 +65,22 @@ public class MainActivity extends IOIOActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//setContentView(R.layout.main);
-		//button_ = (ToggleButton) findViewById(R.id.button);
-		//textView1 = (TextView) findViewById(R.id.textView1);
 
 		setContentView(R.layout.activity_actual_eye_test);
-		nextimage_button = (Button) findViewById(R.id.nextImage);
+		results_button = (Button) findViewById(R.id.results);
+		redo_button = (Button) findViewById(R.id.redo);
 		reset_button = (Button) findViewById(R.id.reset);
 		rec_button = (Button) findViewById(R.id.rec_button);
-		nxt_button = (Button) findViewById(R.id.nxt_button);
+		nxt_button = (Button) findViewById(R.id.nextbutton);
 		imageA = (ImageView) findViewById(R.id.image_view1);
-		distance_view = (TextView)findViewById(R.id.distance_view);
-		distance_final = (TextView)findViewById(R.id.distance_final);
+		distance_view = (TextView) findViewById(R.id.distance_view);
+		distance_final = (TextView) findViewById(R.id.distance_final);
 		distance_values = new double[FILTER_LENGTH];
+		recorded_distances = new double[NUM_IMAGES];
 		drawable_ids = new int[NUM_IMAGES];
-		textview2 = (TextView) findViewById(R.id.textView2);
-        back_button = (Button) findViewById(R.id.backbutton);
+		back_button = (Button) findViewById(R.id.backbutton);
+
+		results_button.setVisibility(View.INVISIBLE);
 		//Initialize array of drawable ids
 		/* drawable_ids[0] = R.drawable.etwohundo;
 		drawable_ids[1] = R.drawable.fonehundo;
@@ -113,15 +116,15 @@ public class MainActivity extends IOIOActivity {
 		drawable_ids[16] = R.drawable.ftwenty;
 		drawable_ids[18] = R.drawable.ptwenty;
 
-	//	drawable_ids[33] = R.drawable.ttwenty;
-	//	drawable_ids[34] = R.drawable.otwenty;
+		//	drawable_ids[33] = R.drawable.ttwenty;
+		//	drawable_ids[34] = R.drawable.otwenty;
 		drawable_ids[1] = R.drawable.afp;
 		drawable_ids[3] = R.drawable.e45_1_medium;
 		drawable_ids[5] = R.drawable.e45_2_medium;
-		drawable_ids[7] = R.drawable.focuspat;
+		drawable_ids[7] = R.drawable.vector;
 		drawable_ids[9] = R.drawable.seamless_geometry;
 		drawable_ids[11] = R.drawable.greenimage2;
-		drawable_ids[13] = R.drawable.focuspat;
+		drawable_ids[13] = R.drawable.monocircles;
 		drawable_ids[15] = R.drawable.blackandwhite;
 		drawable_ids[17] = R.drawable.greenpattern;
 		drawable_ids[19] = R.drawable.brown;
@@ -133,7 +136,8 @@ public class MainActivity extends IOIOActivity {
 //		drawable_ids[9] = R.drawable.letterz;
 
 		imageA.setImageResource(drawable_ids[0]);
-		rec_button.setBackgroundColor(Color.RED);
+		rec_button.setBackgroundColor(Color.GREEN);
+		results_button.setBackgroundColor(Color.MAGENTA);
 
 		rec_button.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -141,20 +145,19 @@ public class MainActivity extends IOIOActivity {
 				nxt_button.setVisibility(View.VISIBLE);
 				rec_button.setVisibility(View.INVISIBLE);
 				distance_final.setVisibility(View.VISIBLE);
-				textview2.setVisibility(View.VISIBLE);
 				double total = 0;
 				double distance_average;
-				for(int i = 0; i < distance_values.length; i++)
-				{
+				for (int i = 0; i < distance_values.length; i++) {
 					total = total + distance_values[i] - OFFSET;
 				}
-
-				distance_average = total/FILTER_LENGTH;
-				double visual_angle = 2 * Math.atan(optotype_size/(2 * distance_average/100));
-				distance_final.setText(String.format("%.02f",distance_average) + " cm");
+				distance_average = total / FILTER_LENGTH;
+				recorded_distances[index_count] = distance_average;
+				double visual_angle = 2 * Math.atan(optotype_size / (2 * distance_average / 100));
+				distance_final.setText(String.format("%.02f", distance_average) + " cm");
 				distance_final.setTextColor(Color.BLACK);
-				textview2.setText("Visual Angle: " + String.format("%.02f", visual_angle));
-				textview2.setTextColor(Color.BLACK);
+				if (index_count == NUM_IMAGES-1) {
+					results_button.setVisibility(View.VISIBLE);
+				}
 			}
 		});
 
@@ -162,49 +165,79 @@ public class MainActivity extends IOIOActivity {
 			@Override
 			public void onClick(View v) {
 				imageA.setImageResource(drawable_ids[getNextImageId()]);
-				//imageA.setVisibility(View.INVISIBLE);
-				//imageB.setVisibility(View.VISIBLE);
+				if(index_count >= NUM_IMAGES - 1) {
+					index_count = 0;
+					results_button.setVisibility(View.INVISIBLE);
+				}
+				else if(index_count == NUM_IMAGES - 2) {
+					results_button.setVisibility(View.INVISIBLE);
+					index_count = NUM_IMAGES - 1;
+				}
+				else {
+					index_count++;
+					results_button.setVisibility(View.INVISIBLE);
+				}
 				rec_button.setVisibility(View.VISIBLE);
 				distance_final.setVisibility(View.INVISIBLE);
-				textview2.setVisibility(View.INVISIBLE);
-				//textview2.setVisibility(View.INVISIBLE);
-				nxt_button.setVisibility(View.INVISIBLE);
 			}
 		});
+
+		results_button.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				double total = 0;
+				Log.d(TAG,"Result button clicked");
+				for(int i = 0; i < recorded_distances.length; i++)
+				{
+					total = total + recorded_distances[i];
+				}
+				double recorded_distance_average = total/NUM_IMAGES;
+				distance_final.setVisibility(View.VISIBLE);
+				distance_final.setText("Average:(all images): " + String.format("%.02f cm", recorded_distance_average));
+			}
+		});
+
 		back_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				imageA.setImageResource(drawable_ids[goBackOneImage()]);
+				if(index_count <= 0) {
+					index_count = NUM_IMAGES - 1;
+					results_button.setVisibility(View.VISIBLE);
+				}
+				else {
+					index_count--;
+					results_button.setVisibility(View.INVISIBLE);
+				}
 				rec_button.setVisibility(View.VISIBLE);
-				textview2.setVisibility(View.INVISIBLE);
 				distance_final.setVisibility(View.INVISIBLE);
-				nxt_button.setVisibility(View.INVISIBLE);
-
+				//nxt_button.setVisibility(View.INVISIBLE);
 			}
 		});
+
 		reset_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				imageA.setImageResource(drawable_ids[getFirstImage()]);
+				index_count = 0;
 				rec_button.setVisibility(View.VISIBLE);
-				textview2.setVisibility(View.INVISIBLE);
 				distance_final.setVisibility(View.INVISIBLE);
-				nxt_button.setVisibility(View.INVISIBLE);
-
+				//nxt_button.setVisibility(View.INVISIBLE);
 			}
 		});
-		nextimage_button.setOnClickListener(new View.OnClickListener() {
+
+		redo_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				imageA.setImageResource(drawable_ids[getNextImageId()]);
+				distance_values[index_count] = 0;
+				imageA.setImageResource(drawable_ids[image_ptr]);
 				rec_button.setVisibility(View.VISIBLE);
-				textview2.setVisibility(View.INVISIBLE);
 				distance_final.setVisibility(View.INVISIBLE);
-				nxt_button.setVisibility(View.INVISIBLE);
-
+				//nxt_button.setVisibility(View.INVISIBLE);
 			}
 		});
 	}
+
 	int getFirstImage() {
 		image_ptr = 0;
 		return image_ptr;
@@ -267,6 +300,7 @@ public class MainActivity extends IOIOActivity {
 		 *
 		 * @see ioio.lib.util.IOIOLooper#loop()
 		 */
+
 		@Override
 		public void loop() throws ConnectionLostException, InterruptedException {
 
@@ -299,8 +333,9 @@ public class MainActivity extends IOIOActivity {
 				runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
-					distance_view.setText(String.format("%.02f",DistanceOutput));
-					if (DistanceOutput > 70){
+					distance_view.setText(String.format("I#%2d :: %.02f",index_count,DistanceOutput));
+
+					if (DistanceOutput > MAX_DISTANCE_THRESHOLD_WARN){
 						distance_view.setTextColor(Color.RED);
 					}
 					else{
@@ -308,8 +343,6 @@ public class MainActivity extends IOIOActivity {
 					}
 				}
 				});
-
-
 
 				Thread.sleep(50);
 			}catch(InterruptedException e){
