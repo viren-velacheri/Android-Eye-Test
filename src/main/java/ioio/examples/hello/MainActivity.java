@@ -185,15 +185,21 @@ public class MainActivity extends IOIOActivity {
 		results_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				double total = 0;
+				double letter_total = 0;
+				double patterns_total = 0;
 				Log.d(TAG,"Result button clicked");
-				for(int i = 0; i < recorded_distances.length; i++)
+				for(int i = 0; i < recorded_distances.length; i+=2)
 				{
-					total = total + recorded_distances[i];
+					letter_total = letter_total + recorded_distances[i];
 				}
-				double recorded_distance_average = total/NUM_IMAGES;
+				for(int i = 1; i < recorded_distances.length; i+=2)
+				{
+					patterns_total = patterns_total + recorded_distances[i];
+				}
+				double recorded_letters_distance_average = letter_total/NUM_IMAGES;
+				double recorded_patterns_distance_average = patterns_total/NUM_IMAGES;
 				distance_final.setVisibility(View.VISIBLE);
-				distance_final.setText("Average:(all images): " + String.format("%.02f cm", recorded_distance_average));
+				distance_final.setText("Average distance:Letters: " + String.format("%.02f cm ", recorded_letters_distance_average) + " Patterns: " + String.format("%.02f cm", recorded_patterns_distance_average));
 			}
 		});
 
