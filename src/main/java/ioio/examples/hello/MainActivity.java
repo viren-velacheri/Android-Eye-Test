@@ -176,17 +176,25 @@ public class MainActivity extends IOIOActivity {
 					distance_final.setTextColor(Color.RED);
 					distance_final.setText(String.format("%.02f", distance_average) + " cm. You should click the \"Redo\" button and redo this one.");
 				}
+				else if (distance_average == -2.34)
+				{
+					distance_final.setTextColor(Color.RED);
+					distance_final.setText(String.format("%.02f", distance_average) + " cm. You forgot to turn on the ultrasonic sensor. Turn it on! Then click the \"Redo\" button and redo this one.");
+				}
 				else if(distance_average <= 0) {
 					distance_final.setTextColor(Color.RED);
-					distance_final.setText(String.format("%.02f", distance_average) + " cm. You should click the \"Redo\" button and redo this one.");
+					distance_final.setText(String.format("%.02f", distance_average) + " cm. Click the \"Redo\" button and redo this one.");
+				}
+				else if (index_count == NUM_IMAGES-1) {
+					results_button.setVisibility(View.VISIBLE);
+					distance_final.setTextColor(Color.GREEN);
+					distance_final.setText(String.format("%.02f", distance_average) + " cm. Nice job! Click the \"Results\" button to get your prescription and average distances!");
 				}
 				else{
 					distance_final.setTextColor(Color.GREEN);
-					distance_final.setText(String.format("%.02f", distance_average) + " cm. Nice job! You can click the \"Next\" button and go to the next image.");
+					distance_final.setText(String.format("%.02f", distance_average) + " cm. Nice job! Click the \"Next\" button and go to the next image.");
 				}
-				if (index_count == NUM_IMAGES-1) {
-					results_button.setVisibility(View.VISIBLE);
-				}
+
 			}
 		});
 
