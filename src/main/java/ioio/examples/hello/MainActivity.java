@@ -174,11 +174,15 @@ public class MainActivity extends IOIOActivity {
 				//double visual_angle = 2 * Math.atan(optotype_size / (2 * distance_average / 100));
 				if(distance_average >= MAX_DISTANCE_THRESHOLD_WARN) {
 					distance_final.setTextColor(Color.RED);
-					distance_final.setText(String.format("%.02f", distance_average) + " cm, You should click the \"Redo\" button and redo this one.");
+					distance_final.setText(String.format("%.02f", distance_average) + " cm. You should click the \"Redo\" button and redo this one.");
+				}
+				else if(distance_average <= 0) {
+					distance_final.setTextColor(Color.RED);
+					distance_final.setText(String.format("%.02f", distance_average) + " cm. You should click the \"Redo\" button and redo this one.");
 				}
 				else{
 					distance_final.setTextColor(Color.GREEN);
-					distance_final.setText(String.format("%.02f", distance_average) + " cm , Nice job! You can click the \"Next\" button and go to the next image.");
+					distance_final.setText(String.format("%.02f", distance_average) + " cm. Nice job! You can click the \"Next\" button and go to the next image.");
 				}
 				if (index_count == NUM_IMAGES-1) {
 					results_button.setVisibility(View.VISIBLE);
@@ -246,6 +250,7 @@ public class MainActivity extends IOIOActivity {
 					nearsighted.setVisibility(View.INVISIBLE);
 				}
 				else if(index_count==1){
+					index_count = 0;
 					farsighted.setVisibility(View.VISIBLE);
 					nearsighted.setVisibility(View.VISIBLE);
 				}
