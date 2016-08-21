@@ -176,10 +176,10 @@ public class MainActivity extends IOIOActivity {
 					distance_final.setTextColor(Color.RED);
 					distance_final.setText(String.format("%.02f", distance_average) + " cm. You should click the \"Redo\" button and redo this one.");
 				}
-				else if (distance_average == -2.34)
+				else if (distance_average <= -2.34)
 				{
 					distance_final.setTextColor(Color.RED);
-					distance_final.setText(String.format("%.02f", distance_average) + " cm. You forgot to turn on the ultrasonic sensor. Turn it on! Then click the \"Redo\" button and redo this one.");
+					distance_final.setText(String.format("%.02f", distance_average) + " cm. You forgot to turn on the ultrasonic sensor! Turn it on and make sure Bluetooth is on as well. Then click the \"Redo\" button.");
 				}
 				else if(distance_average <= 0) {
 					distance_final.setTextColor(Color.RED);
