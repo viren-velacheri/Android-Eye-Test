@@ -103,4 +103,19 @@
 
     </LinearLayout>
 
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nearsighted"
+        android:id="@+id/nearsighted"
+        android:layout_gravity="right" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Farsighted"
+        android:id="@+id/farsighted" />
+
 </LinearLayout>

@@ -40,6 +40,8 @@ public class MainActivity extends IOIOActivity {
 	private Button back_button;
 	private Button reset_button;
 	private Button redo_button;
+	private Button nearsighted;
+	private Button farsighted;
 	private ImageView imageA;
 
 	private double DistanceOutput;
@@ -57,6 +59,7 @@ public class MainActivity extends IOIOActivity {
 	private final double MAX_DISTANCE_THRESHOLD_WARN = 70.0;
 	private int index_count = 0;
 	private final String TAG="MainActivity";
+	private String sign = "";
 
 	/**
 	 * Called when the activity is first created. Here we normally initialize
@@ -79,6 +82,8 @@ public class MainActivity extends IOIOActivity {
 		recorded_distances = new double[NUM_IMAGES];
 		drawable_ids = new int[NUM_IMAGES];
 		back_button = (Button) findViewById(R.id.backbutton);
+		farsighted = (Button) findViewById(R.id.farsighted);
+		nearsighted = (Button) findViewById(R.id.nearsighted);
 
 		results_button.setVisibility(View.INVISIBLE);
 		//Initialize array of drawable ids
@@ -138,6 +143,20 @@ public class MainActivity extends IOIOActivity {
 		imageA.setImageResource(drawable_ids[0]);
 		rec_button.setBackgroundColor(Color.GREEN);
 		results_button.setBackgroundColor(Color.MAGENTA);
+		nearsighted.setVisibility(View.VISIBLE);
+		farsighted.setVisibility(View.VISIBLE);
+		nearsighted.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				sign = "-";
+			}
+		});
+		farsighted.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				sign = "+";
+			}
+		});
 
 		rec_button.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -152,9 +171,15 @@ public class MainActivity extends IOIOActivity {
 				}
 				distance_average = total / FILTER_LENGTH;
 				recorded_distances[index_count] = distance_average;
-				double visual_angle = 2 * Math.atan(optotype_size / (2 * distance_average / 100));
-				distance_final.setText(String.format("%.02f", distance_average) + " cm");
-				distance_final.setTextColor(Color.BLACK);
+				//double visual_angle = 2 * Math.atan(optotype_size / (2 * distance_average / 100));
+				if(distance_average >= MAX_DISTANCE_THRESHOLD_WARN) {
+					distance_final.setTextColor(Color.RED);
+					distance_final.setText(String.format("%.02f", distance_average) + " cm, You should click the \"Redo\" button and redo this one.");
+				}
+				else{
+					distance_final.setTextColor(Color.GREEN);
+					distance_final.setText(String.format("%.02f", distance_average) + " cm , Nice job! You can click the \"Next\" button and go to the next image.");
+				}
 				if (index_count == NUM_IMAGES-1) {
 					results_button.setVisibility(View.VISIBLE);
 				}
@@ -168,6 +193,8 @@ public class MainActivity extends IOIOActivity {
 				if(index_count >= NUM_IMAGES - 1) {
 					index_count = 0;
 					results_button.setVisibility(View.INVISIBLE);
+					farsighted.setVisibility(View.VISIBLE);
+					nearsighted.setVisibility(View.VISIBLE);
 				}
 				else if(index_count == NUM_IMAGES - 2) {
 					results_button.setVisibility(View.INVISIBLE);
@@ -176,6 +203,8 @@ public class MainActivity extends IOIOActivity {
 				else {
 					index_count++;
 					results_button.setVisibility(View.INVISIBLE);
+					farsighted.setVisibility(View.INVISIBLE);
+					nearsighted.setVisibility(View.INVISIBLE);
 				}
 				rec_button.setVisibility(View.VISIBLE);
 				distance_final.setVisibility(View.INVISIBLE);
@@ -202,7 +231,7 @@ public class MainActivity extends IOIOActivity {
 				double overall_distance_average_in_meters = overall_distance_average/100;
 				double prescription = 1/overall_distance_average_in_meters;
 				distance_final.setVisibility(View.VISIBLE);
-				distance_final.setText("Average distance for Letters: " + String.format("%.02f cm ", recorded_letters_distance_average) + " and Patterns: " + String.format("%.02f cm", recorded_patterns_distance_average) + "," + " Prescription: " + String.format("%.02f", prescription));
+				distance_final.setText("Average distance for Letters: " + String.format("%.02f cm ", recorded_letters_distance_average) + " and Patterns: " + String.format("%.02f cm", recorded_patterns_distance_average) + "," + " Prescription: " + sign + String.format("%.02f", prescription));
 			}
 		});
 
@@ -213,10 +242,18 @@ public class MainActivity extends IOIOActivity {
 				if(index_count <= 0) {
 					index_count = NUM_IMAGES - 1;
 					results_button.setVisibility(View.VISIBLE);
+					farsighted.setVisibility(View.INVISIBLE);
+					nearsighted.setVisibility(View.INVISIBLE);
+				}
+				else if(index_count==1){
+					farsighted.setVisibility(View.VISIBLE);
+					nearsighted.setVisibility(View.VISIBLE);
 				}
 				else {
 					index_count--;
 					results_button.setVisibility(View.INVISIBLE);
+					farsighted.setVisibility(View.INVISIBLE);
+					nearsighted.setVisibility(View.INVISIBLE);
 				}
 				rec_button.setVisibility(View.VISIBLE);
 				distance_final.setVisibility(View.INVISIBLE);
@@ -231,6 +268,8 @@ public class MainActivity extends IOIOActivity {
 				index_count = 0;
 				rec_button.setVisibility(View.VISIBLE);
 				distance_final.setVisibility(View.INVISIBLE);
+				farsighted.setVisibility(View.VISIBLE);
+				nearsighted.setVisibility(View.VISIBLE);
 				//nxt_button.setVisibility(View.INVISIBLE);
 			}
 		});
@@ -343,7 +382,6 @@ public class MainActivity extends IOIOActivity {
 				@Override
 				public void run() {
 					distance_view.setText(String.format("I#%2d :: %.02f",index_count,DistanceOutput));
-
 					if (DistanceOutput > MAX_DISTANCE_THRESHOLD_WARN){
 						distance_view.setTextColor(Color.RED);
 					}
