@@ -198,8 +198,11 @@ public class MainActivity extends IOIOActivity {
 				}
 				double recorded_letters_distance_average = letter_total/10;
 				double recorded_patterns_distance_average = patterns_total/10;
+				double overall_distance_average = (recorded_letters_distance_average + recorded_patterns_distance_average)/2;
+				double overall_distance_average_in_meters = overall_distance_average/100;
+				double prescription = 1/overall_distance_average_in_meters;
 				distance_final.setVisibility(View.VISIBLE);
-				distance_final.setText("Average distance:Letters: " + String.format("%.02f cm ", recorded_letters_distance_average) + " Patterns: " + String.format("%.02f cm", recorded_patterns_distance_average));
+				distance_final.setText("Average distance for Letters: " + String.format("%.02f cm ", recorded_letters_distance_average) + " and Patterns: " + String.format("%.02f cm", recorded_patterns_distance_average) + "," + " Prescription: " + String.format("%.02f", prescription));
 			}
 		});
 
